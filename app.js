@@ -31,12 +31,12 @@ app.post("/", function(req,res){
         ]
     };
     //data.members[0].email_address = email;
-
+// this is change
     const jsonData = JSON.stringify(data);
     const url = "https://us21.api.mailchimp.com/3.0/lists/71da7f2190";
     const options = {
         method: "POST",
-        auth: "zomie:a520c72195e715056c53f85c524567c6-us21"
+        auth: "zomie:37729c74c2a39adcd5d9690cb7b19fad-us21"
     }
     const request = https.request(url, options, function(response){
         if(response.statusCode === 200){
@@ -45,7 +45,7 @@ app.post("/", function(req,res){
             res.sendFile(__dirname + "/failure.html")
         }
         response.on("data", function(data){
-            console.log(JSON.parse(data));
+            console.log(JSON.parse(data));  
         })
     })
     request.write(jsonData);
