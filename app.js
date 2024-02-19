@@ -8,6 +8,8 @@ app.use(bodyparser.urlencoded({extended: true}));
 const dotenv = require('dotenv').config();
 let config = dotenv.parsed
 
+console.log("this repo has started working")
+
 app.get("/", function(req, res){
     res.sendFile(__dirname + "/signup.html");
 })
@@ -54,6 +56,8 @@ app.post("/", function(req,res){
     request.write(jsonData);
     request.end();
 })
+
+
 
 app.post("/failure", function(req,res){
     res.redirect("/");
