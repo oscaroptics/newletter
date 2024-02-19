@@ -5,7 +5,8 @@ const https = require("https");
 const app = express();
 app.use(express.static("public"));
 app.use(bodyparser.urlencoded({extended: true}));
-
+const dotenv = require('dotenv').config();
+let config = dotenv.parsed
 
 app.get("/", function(req, res){
     res.sendFile(__dirname + "/signup.html");
@@ -30,23 +31,25 @@ app.post("/", function(req,res){
             }
         ]
     };
-    //data.members[0].email_address = email;
-// this is change
+
     const jsonData = JSON.stringify(data);
-    const url = "https://us21.api.mailchimp.com/3.0/lists/71da7f2190";
+
+    const url = process.env.url;
+
     const options = {
         method: "POST",
-        auth: "zomie:37729c74c2a39adcd5d9690cb7b19fad-us21"
+        auth: process.env.auth
     }
+
     const request = https.request(url, options, function(response){
         if(response.statusCode === 200){
             res.sendFile(__dirname + "/success.html")
         } else {
             res.sendFile(__dirname + "/failure.html")
         }
-        response.on("data", function(data){
-            console.log(JSON.parse(data));  
-        })
+        // response.on("data", function(data){
+        //     console.log(JSON.parse(data));
+        // })
     })
     request.write(jsonData);
     request.end();
